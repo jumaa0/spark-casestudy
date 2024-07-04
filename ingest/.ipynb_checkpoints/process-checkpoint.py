@@ -2,8 +2,31 @@ import pandas as pd
 from datetime import datetime, timedelta
 import subprocess
 import io
+import os
+
 
 # Function to read and preprocess data
+def get_last_directory(base_path):
+    """
+    Get the last directory in the given base path.
+    """
+    directories = [d for d in os.listdir(base_path) if os.path.isdir(os.path.join(base_path, d))]
+    if not directories:
+        raise Exception("No directories found in the base path.")
+    directories.sort()
+    return directories[-1]
+
+def generate_file_name(base_name, directory_name):
+    """
+    Generate file name based on the last character of the directory name.
+    """
+    number = directory_name[-1]
+    parts = base_name.split('_')
+    parts[-1] = f"{number}.csv"
+    new_file_name = '_'.join(parts)
+    return new_file_name
+
+
 def read_and_preprocess_data(file_path):
     # Read CSV file into DataFrame
     df = pd.read_csv(file_path)
@@ -15,11 +38,11 @@ def read_and_preprocess_data(file_path):
     return df
 
 # Function to create dynamic HDFS path based on current time
-def create_hdfs_path(base_path):
+def create_hdfs_path(base_path, file):
     current_time = datetime.now()
     day = current_time.strftime('%j')  # Day of the year (1-365)
     hour = current_time.hour + 1  # Hour of the day (1-24)
-    return f'{base_path}/day{day}/hour{hour}/'
+    return f'{base_path}/day{day}/hour{hour}/{file}'
 
 # Function to write DataFrame to HDFS
 def write_dataframe_to_hdfs(df, hdfs_path):

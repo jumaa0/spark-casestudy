@@ -53,6 +53,7 @@ def add_offer_column(transactions_df):
         .when(col("offer_5"), "5")
     )
 
+
 def insert_into_hive_table(spark, df, table_name, table_location=None, primary_key=None):
     """
     Insert data from a DataFrame into a Hive table.

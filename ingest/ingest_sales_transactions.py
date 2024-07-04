@@ -1,20 +1,29 @@
 # Import necessary functions from process module
-from process import read_and_preprocess_data, create_hdfs_path, write_dataframe_to_hdfs
+import os
 
-# Define the main function to execute the workflow
+from process import read_and_preprocess_data, create_hdfs_path, write_dataframe_to_hdfs, get_last_directory, generate_file_name
+
 def main():
-    # Define file path and base HDFS path
-    file_path = "/data/casestudy/group2/sales_transactions_SS_raw_2.csv"
+    # Define base path and HDFS path
+    base_path = "/data/casestudy"
     base_hdfs_path = '/casestudy'
     
+    # Get the last directory
+    last_directory = get_last_directory(base_path)
+    
+    # Define the file path dynamically
+    base_file_name = "sales_transactions_SS_raw_2.csv"
+    dynamic_file_name = generate_file_name(base_file_name, last_directory)
+    file_path = os.path.join(base_path, last_directory, dynamic_file_name)
+    
     # Read and preprocess data
-    branches_df = read_and_preprocess_data(file_path)
+    sales_transactions_df = read_and_preprocess_data(file_path)
     
     # Create dynamic HDFS path
     hdfs_path = create_hdfs_path(base_hdfs_path, "sales_transactions.csv")
     
     # Write DataFrame to HDFS
-    write_dataframe_to_hdfs(branches_df, hdfs_path)
+    write_dataframe_to_hdfs(sales_transactions_df, hdfs_path)
 
 # Execute the main function
 if __name__ == "__main__":
