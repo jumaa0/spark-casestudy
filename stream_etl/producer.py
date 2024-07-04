@@ -12,7 +12,7 @@ conf = {
 }
 
 # Updated topic name to "sales"
-topic = 'sales'
+topic = 'jumaa_topic'
 
 def generate_event(event_type):
     event = {
