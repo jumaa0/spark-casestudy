@@ -99,8 +99,8 @@ def main():
     fact_sales.show(2)
     
     # Inserting data into Hive tables
-    insert_into_hive_table(spark, fact_sales, "casestudy.fact_sales")  # Fact sales - directly insert
-    insert_into_hive_table(spark, dim_sales, "casestudy.dim_sales")    # Dim sales - directly insert
+    #insert_into_hive_table(spark, fact_sales, "casestudy.fact_sales")  # Fact sales - directly insert
+    #insert_into_hive_table(spark, dim_sales, "casestudy.dim_sales")    # Dim sales - directly insert
     insert_into_hive_table(spark, dim_product, "casestudy.dim_product", primary_key="product_id")  # Dim product - specify primary key
     insert_into_hive_table(spark, dim_customer, "casestudy.dim_customer", primary_key="customer_id")  # Dim customer - specify primary key
     insert_into_hive_table(spark, dim_branch, "casestudy.dim_branch", primary_key="branch_id")  # Dim branch - specify primary key

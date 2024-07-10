@@ -10,7 +10,7 @@ spark = SparkSession.builder \
 
 # Kafka connection details
 bootstrap_servers = "pkc-56d1g.eastus.azure.confluent.cloud:9092"
-kafka_topic = "jumaa_topic"  # Replace with your Kafka topic name
+kafka_topic = "jumaa_topic"  
 kafka_username = "JUKQQM4ZM632RECA"
 kafka_password = "UUkrPuSttgOC0U9lY3ZansNsKfN9fbxZPFwrGxudDrfv+knTD4rCwK+KdIzVPX0D"
 
